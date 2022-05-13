@@ -91,6 +91,7 @@ TODO
 
 #### Диаграмма 
 
+<img src="images/web_service_classes.png">
 
 ### Взаимодействия и состояния
 
