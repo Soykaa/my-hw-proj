@@ -4,17 +4,18 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 
 public class AttemptView {
+    @JsonFormat
     private final HomeworkView homework;
-    private final StudentView student;
+    @JsonFormat
     private final MarkView mark;
+    @JsonFormat
     private final String comment;
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS]")
     private final LocalDateTime date;
 
-    public AttemptView(HomeworkView homework, StudentView student, MarkView mark, String comment,
+    public AttemptView(HomeworkView homework, MarkView mark, String comment,
         LocalDateTime date) {
         this.homework = homework;
-        this.student = student;
         this.mark = mark;
         this.comment = comment;
         this.date = date;
@@ -22,10 +23,6 @@ public class AttemptView {
 
     public HomeworkView homework() {
         return homework;
-    }
-
-    public StudentView student() {
-        return student;
     }
 
     public MarkView mark() {

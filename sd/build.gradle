@@ -18,6 +18,9 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+	implementation 'com.rabbitmq:amqp-client:5.14.2'
+	implementation 'org.flywaydb:flyway-core'
+	runtimeOnly 'org.postgresql:postgresql'
 }
 
 tasks.named('test') {
