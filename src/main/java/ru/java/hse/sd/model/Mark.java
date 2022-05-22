@@ -1,5 +1,15 @@
 package ru.java.hse.sd.model;
 
+/**
+ * Enum for checker marks.
+ **/
 public enum Mark {
-    YES, NO
+    /**
+     * Positive mark.
+     **/
+    YES,
+    /**
+     * Negative mark.
+     */
+    NO
 }

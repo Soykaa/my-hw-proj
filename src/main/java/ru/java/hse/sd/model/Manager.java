@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -21,9 +22,17 @@ import ru.java.hse.sd.model.view.MarkView;
 import ru.java.hse.sd.model.view.SubmissionView;
 import ru.java.hse.sd.queue.Balancer;
 
+/**
+ * Class that contains general business logic.
+ **/
 public class Manager {
     private final Balancer balancer = new Balancer();
 
+    /**
+     * Returns homeworks list.
+     *
+     * @return homeworks as list
+     **/
     public List<HomeworkView> homeworks() {
         try (Session session = Storage.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -33,17 +42,23 @@ public class Manager {
             Query<Homework> query = session.createQuery(cr);
             List<Homework> homeworks = query.getResultList();
             return homeworks.stream()
-                .map(a -> new HomeworkView(
-                    a.getId(),
-                    a.getName(),
-                    a.getPublicationDate(),
-                    a.getTaskDescription(),
-                    a.getDeadline(),
-                    a.getCheckerId()
-                )).collect(Collectors.toList());
+                    .map(a -> new HomeworkView(
+                            a.getId(),
+                            a.getName(),
+                            a.getPublicationDate(),
+                            a.getTaskDescription(),
+                            a.getDeadline(),
+                            a.getCheckerId()
+                    )).collect(Collectors.toList());
         }
     }
 
+    /**
+     * Submits solution.
+     *
+     * @param submissionView submission view
+     * @throws Exception in case of balancer error
+     **/
     public void submit(SubmissionView submissionView) throws Exception {
         Submission submission;
         try (Session session = Storage.getSessionFactory().openSession()) {
@@ -61,6 +76,11 @@ public class Manager {
         balancer.task(submission);
     }
 
+    /**
+     * Returns descriptions of all attempts.
+     *
+     * @return attempts descriptions as list
+     **/
     public List<AttemptView> results() {
         try (Session session = Storage.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -70,22 +90,27 @@ public class Manager {
             Query<Attempt> query = session.createQuery(cr);
             List<Attempt> attempts = query.getResultList();
             Map<String, HomeworkView> homeworks = homeworks().stream()
-                .collect(Collectors.toMap(HomeworkView::id, Function.identity()));
+                    .collect(Collectors.toMap(HomeworkView::id, Function.identity()));
             return attempts.stream()
-                .map(a -> new AttemptView(
-                    homeworks.get(a.getHomeworkId()),
-                    new MarkView(a.getMark().name()),
-                    a.getComment(),
-                    a.getDateTime())
-                ).collect(Collectors.toList());
+                    .map(a -> new AttemptView(
+                            homeworks.get(a.getHomeworkId()),
+                            new MarkView(a.getMark().name()),
+                            a.getComment(),
+                            a.getDateTime())
+                    ).collect(Collectors.toList());
         }
     }
 
+    /**
+     * Adds homework.
+     *
+     * @param homework homework
+     **/
     public void addHomework(HomeworkView homework) {
         try (Session session = Storage.getSessionFactory().openSession()) {
             Transaction tx = session.beginTransaction();
             Homework homeworkModel = new Homework(homework.name(), homework.publicationDate(),
-                homework.taskDescription(), homework.deadline(), homework.checkerId());
+                    homework.taskDescription(), homework.deadline(), homework.checkerId());
             try {
                 session.save(homeworkModel);
                 tx.commit();
@@ -96,6 +121,12 @@ public class Manager {
         }
     }
 
+    /**
+     * Adds checker.
+     *
+     * @param id   checker id
+     * @param code checker code
+     **/
     public void addChecker(String id, String code) {
         try (Session session = Storage.getSessionFactory().openSession()) {
             Transaction tx = session.beginTransaction();

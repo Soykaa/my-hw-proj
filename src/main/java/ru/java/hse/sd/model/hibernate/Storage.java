@@ -5,15 +5,18 @@ import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+/**
+ * Information about database sessions.
+ **/
 public class Storage {
     private static SessionFactory sessionFactory;
 
     private static SessionFactory create() throws HibernateException {
         Flyway flyway = Flyway.configure()
-            .baselineOnMigrate(true)
-            .dataSource("jdbc:postgresql://localhost:5432/postgres", "postgres", "postgres")
-            .locations("classpath:db/migration")
-            .load();
+                .baselineOnMigrate(true)
+                .dataSource("jdbc:postgresql://localhost:5432/postgres", "postgres", "postgres")
+                .locations("classpath:db/migration")
+                .load();
         flyway.migrate();
         Configuration cfg = new Configuration();
         cfg.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5432/postgres");
@@ -27,6 +30,12 @@ public class Storage {
         return cfg.buildSessionFactory();
     }
 
+    /**
+     * Returns session factory.
+     *
+     * @return session factory
+     * @throws HibernateException in case of creation error
+     **/
     public static synchronized SessionFactory getSessionFactory() throws HibernateException {
         if (sessionFactory == null) {
             sessionFactory = create();
