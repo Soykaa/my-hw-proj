@@ -9,14 +9,17 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.java.hse.sd.model.Manager;
 import ru.java.hse.sd.model.view.AttemptView;
 import ru.java.hse.sd.model.view.HomeworkView;
 import ru.java.hse.sd.model.view.SubmissionView;
+import org.springframework.ui.Model;
 
 @RestController
 @RequestMapping(path = "student")
@@ -32,17 +35,12 @@ class StudentController {
         manager = new Manager();
     }
 
-    @GetMapping("/homeworks")
+    @GetMapping("/homeworks-json")
     CollectionModel<EntityModel<HomeworkView>> homeworks() {
         List<EntityModel<HomeworkView>> homeworks = manager.homeworks().stream()
             .map(homeworkAssembler::toModel) //
             .collect(Collectors.toList());
         return CollectionModel.of(homeworks, linkTo(methodOn(StudentController.class).homeworks()).withSelfRel());
-    }
-
-    @GetMapping("/welcome")
-    public String welcomeAsHTML() {
-        return "welcome";
     }
 
     @PostMapping("/submit")
@@ -51,10 +49,17 @@ class StudentController {
         return "Ok";
     }
 
-    @GetMapping("/results")
+    @GetMapping("/results-json")
     CollectionModel<EntityModel<AttemptView>> results() {
         List<EntityModel<AttemptView>> attempts = manager.results().stream()
             .map(attemptAssembler::toModel).collect(Collectors.toList());
         return CollectionModel.of(attempts, linkTo(methodOn(StudentController.class).results()).withSelfRel());
+    }
+
+    @GetMapping("/results-json/{id}")
+    EntityModel<AttemptView> results(@PathVariable Integer id) {
+        EntityModel<AttemptView> attempt = manager.results().stream()
+                .map(attemptAssembler::toModel).collect(Collectors.toList()).get(id);
+        return attempt;
     }
 }

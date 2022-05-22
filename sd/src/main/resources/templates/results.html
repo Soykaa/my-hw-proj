@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<table>
+    <tr>
+        <th></th>
+        <th>DATE</th>
+        <th>HOMEWORK</th>
+        <th>MARK</th>
+    </tr>
+    <tr th:each="attempt, iterStat : ${attempts}">
+        <td>
+            <a th:href="@{'results/' + ${iterStat.index}}">look attempt</a>
+        </td>
+        <td th:text="${attempt.date()}">  </td>
+        <td th:text="${attempt.homework().name()}">  </td>
+        <td th:text="${attempt.mark().getMark()}">  </td>
+    </tr>
+</table>
+
+</body>
+</html>
