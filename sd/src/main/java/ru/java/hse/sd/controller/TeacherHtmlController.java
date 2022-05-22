@@ -11,15 +11,28 @@ import ru.java.hse.sd.model.view.AttemptView;
 
 import java.util.List;
 
+/**
+ * Controller class that responds to student actions (requests). Works with HTML.
+ **/
 @Controller
 @RequestMapping(path = "teacher")
 public class TeacherHtmlController {
     private final Manager manager;
 
+    /**
+     * Creates new instance of TeacherHtmlController object.
+     * Creates new Manager instance in it.
+     **/
     TeacherHtmlController() {
         manager = new Manager();
     }
 
+    /**
+     * Returns list of results, sorted by due date.
+     *
+     * @param model model
+     * @return page with list of results
+     **/
     @GetMapping("/results")
     public String results(Model model) {
         List<AttemptView> attempts = manager.results();
@@ -27,6 +40,12 @@ public class TeacherHtmlController {
         return "results";
     }
 
+    /**
+     * Returns result which corresponds passed id.
+     *
+     * @param id id
+     * @return page with result
+     **/
     @GetMapping("/results/{id}")
     public String results(@PathVariable Integer id, Model model) {
         AttemptView attempt = manager.results().get(id);
@@ -34,6 +53,9 @@ public class TeacherHtmlController {
         return "result";
     }
 
+    /**
+     * Mostly for testing.
+     **/
     @GetMapping("/welcome")
     public String welcomeAsHTML(@RequestParam(name = "name", required = false, defaultValue = "Teacher") String name, Model model) {
         model.addAttribute("name", name);

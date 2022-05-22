@@ -13,6 +13,6 @@ class AttemptModelAssembler implements RepresentationModelAssembler<AttemptView,
     @Override
     public EntityModel<AttemptView> toModel(AttemptView attempt) {
         return EntityModel.of(attempt,
-            linkTo(methodOn(StudentController.class).results()).withRel("attempts"));
+                linkTo(methodOn(StudentController.class).results()).withRel("attempts"));
     }
 }

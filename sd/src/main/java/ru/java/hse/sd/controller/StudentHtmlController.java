@@ -12,15 +12,28 @@ import ru.java.hse.sd.model.view.HomeworkView;
 
 import java.util.List;
 
+/**
+ * Controller class that responds to student actions (requests). Works with HTML.
+ **/
 @Controller
 @RequestMapping(path = "student")
 public class StudentHtmlController {
     private final Manager manager;
 
+    /**
+     * Creates new instance of StudentHtmlController object.
+     * Creates new Manager instance in it.
+     **/
     StudentHtmlController() {
         manager = new Manager();
     }
 
+    /**
+     * Returns list of homeworks in the correct order.
+     *
+     * @param model model
+     * @return page with list of homeworks
+     **/
     @GetMapping("/homeworks")
     public String homeworks(Model model) {
         List<HomeworkView> homeworks = manager.homeworks();
@@ -28,12 +41,12 @@ public class StudentHtmlController {
         return "homeworks";
     }
 
-    @GetMapping("/welcome")
-    public String welcomeAsHTML(@RequestParam(name = "name", required = false, defaultValue = "Student") String name, Model model) {
-        model.addAttribute("name", name);
-        return "welcome";
-    }
-
+    /**
+     * Returns list of results, sorted by due date.
+     *
+     * @param model model
+     * @return page with list of results
+     **/
     @GetMapping("/results")
     public String results(Model model) {
         List<AttemptView> attempts = manager.results();
@@ -41,10 +54,26 @@ public class StudentHtmlController {
         return "results";
     }
 
+    /**
+     * Returns result which corresponds passed id.
+     *
+     * @param id    id
+     * @param model model
+     * @return result page
+     **/
     @GetMapping("/results/{id}")
     public String results(@PathVariable Integer id, Model model) {
         AttemptView attempt = manager.results().get(id);
         model.addAttribute("attempt", attempt);
         return "result";
+    }
+
+    /**
+     * Mostly for testing.
+     **/
+    @GetMapping("/welcome")
+    public String welcome(@RequestParam(name = "name", required = false, defaultValue = "Student") String name, Model model) {
+        model.addAttribute("name", name);
+        return "welcome";
     }
 }

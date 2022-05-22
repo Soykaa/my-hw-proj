@@ -12,6 +12,6 @@ class HomeworkModelAssembler implements RepresentationModelAssembler<HomeworkVie
     @Override
     public EntityModel<HomeworkView> toModel(HomeworkView homework) {
         return EntityModel.of(homework,
-            linkTo(methodOn(StudentController.class).homeworks()).withRel("homeworks"));
+                linkTo(methodOn(StudentController.class).homeworks()).withRel("homeworks"));
     }
 }

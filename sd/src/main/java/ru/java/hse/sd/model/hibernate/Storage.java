@@ -11,14 +11,14 @@ public class Storage {
     private static SessionFactory create() throws HibernateException {
         Flyway flyway = Flyway.configure()
             .baselineOnMigrate(true)
-            .dataSource("jdbc:postgresql://localhost:5432/postgres", "postgres", "postgres")
+            .dataSource("jdbc:postgresql://localhost:5432/postgres", "postgres", "123")
             .locations("classpath:db/migration")
             .load();
         flyway.migrate();
         Configuration cfg = new Configuration();
         cfg.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5432/postgres");
         cfg.setProperty("hibernate.connection.username", "postgres");
-        cfg.setProperty("hibernate.connection.password", "postgres");
+        cfg.setProperty("hibernate.connection.password", "123");
         cfg.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
         cfg.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         cfg.addAnnotatedClass(Attempt.class);
