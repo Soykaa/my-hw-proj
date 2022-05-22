@@ -18,8 +18,12 @@ import ru.java.hse.sd.model.hibernate.Storage;
 import ru.java.hse.sd.model.view.AttemptView;
 import ru.java.hse.sd.model.view.HomeworkView;
 import ru.java.hse.sd.model.view.MarkView;
+import ru.java.hse.sd.model.view.SubmissionView;
+import ru.java.hse.sd.queue.Balancer;
 
 public class Manager {
+    private final Balancer balancer = new Balancer();
+
     public List<HomeworkView> homeworks() {
         try (Session session = Storage.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -40,10 +44,12 @@ public class Manager {
         }
     }
 
-    public void submit(String homeworkId, String solutionUrl) {
+    public void submit(SubmissionView submissionView) throws Exception {
+        Submission submission;
         try (Session session = Storage.getSessionFactory().openSession()) {
             Transaction tx = session.beginTransaction();
-            Attempt attempt = new Attempt(homeworkId, LocalDateTime.now());
+            Attempt attempt = new Attempt(submissionView.getHomeworkId(), LocalDateTime.now());
+            submission = new Submission(attempt.getId(), submissionView.getHomeworkId(), submissionView.getSolutionUrl());
             try {
                 session.save(attempt);
                 tx.commit();
@@ -52,6 +58,7 @@ public class Manager {
                 throw new RuntimeException(e);
             }
         }
+        balancer.task(submission);
     }
 
     public List<AttemptView> results() {

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.java.hse.sd.model.Manager;
 import ru.java.hse.sd.model.view.AttemptView;
 import ru.java.hse.sd.model.view.HomeworkView;
+import ru.java.hse.sd.model.view.SubmissionView;
 
 @RestController
 @RequestMapping(path = "student")
@@ -39,8 +40,8 @@ class StudentController {
     }
 
     @PostMapping("/submit")
-    String submit(@RequestBody Submission submission) {
-        manager.submit(submission.getHomeworkId(), submission.getSolutionUrl());
+    String submit(@RequestBody Submission submission) throws Exception {
+        manager.submit(new SubmissionView(submission.getHomeworkId(), submission.getSolutionUrl()));
         return "Ok";
     }
 
