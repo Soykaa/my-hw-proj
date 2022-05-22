@@ -111,24 +111,79 @@ P.S. Все совпадения с реальными людьми случай
 
 ##### class StudentController
 
-Класс-контроллер, отвечающий за действия (запросы) студента.
+Класс-контроллер, отвечающий за действия (запросы) студента. Работает с JSON.
+
+**Поля**:
+
+- `HomeworkModelAssembler homeworkAssembler`
+- `AttemptModelAssembler attemptAssembler`
+- `Manager manager`
+
+**Конструкторы**:
+
+- `StudentController(HomeworkModelAssembler homeworkAssembler, AttemptModelAssembler attemptAssembler)`
 
 **Методы**:
 
-- `homeworks()` - получение списка всех домашек в нужном порядке.
-- `submit(str, Submission)` - отправка решения. В качестве аргумента передается и само
-  решение
-- `results()` - список результатов, отсортированный по дате сдачи.
+- `CollectionModel<EntityModel<HomeworkView>> homeworks()` - получение списка всех домашек в нужном порядке
+- `String submit(Submission submission)` - отправка решения. В качестве аргумента передается само решение
+- `CollectionModel<EntityModel<AttemptView>> results()` - список результатов, отсортированный по дате сдачи
+- `EntityModel<AttemptView> results(Integer id)` - результат, соответствующий идентификатору _id_
+
+##### class StudentHtmlController
+
+Класс-контроллер, отвечающий за действия (запросы) студента. Работает с HTML.
+
+**Поля**:
+
+- `Manager manager` - менеджер приложения
+
+**Конструкторы**:
+
+- `StudentHtmlController()`
+
+**Методы**:
+
+- `String homeworks(Model model)` - получение списка всех домашек в нужном порядке
+- `String results(Model model)` - список результатов, отсортированный по дате сдачи
+- `String results(Integer id, Model model)` - результат, соответствующий идентификатору _id_
 
 ##### class TeacherController
 
-Класс-контроллер, отвечающий за действия (запросы) преподавателя.
+Класс-контроллер, отвечающий за действия (запросы) преподавателя. Работает с JSON.
+
+**Поля**:
+
+- `AttemptModelAssembler attemptAssembler`
+- `Manager manager`
+
+**Конструкторы**:
+
+- `TeacherController(AttemptModelAssembler attemptAssembler)`
 
 **Методы**:
 
-- `add_homework(Assignment)`- добавление домашки. В качестве аргумента передается само домашнее задание
-- `results()`- список результатов, отсортированный по дате сдачи.
-- `add_checker(str, str)` - добавление чекера. В качестве аргументов передаются _id_ чекера (преподаватель задает его самстоятельно) и его реализация
+- `String homework(Task task)`- добавление домашки
+- `CollectionModel<EntityModel<AttemptView>> results()`- список результатов, отсортированный по дате сдачи
+- `String submit(Checker checker)` - добавление чекера
+- `EntityModel<AttemptView> results(Integer id)` - результат, соответствующий идентификатору _id_
+
+##### class TeacherHtmlController
+
+Класс-контроллер, отвечающий за действия (запросы) преподавателя. Работает с HTML.
+
+**Поля**:
+
+- `Manager manager` - менеджер приложения
+
+**Конструкторы**:
+
+- `TeacherHtmlController()`
+
+**Методы**:
+
+- `String results(Model model)`- список результатов, отсортированный по дате сдачи
+- `String results(Integer id, Model model)` - результат, соответствующий идентификатору _id_
 
 ##### class Submission
 
@@ -136,21 +191,59 @@ P.S. Все совпадения с реальными людьми случай
 
 **Поля**:
 
-- `homework_id: str` - указывает на то, какой домашке соответствует данное решение
-- `solution_url: str`- ссылка на само решение
+- `String homeworkId` - указывает на то, какой домашке соответствует данное решение
+- `String solutionUrl`- ссылка на само решение
 
-##### class Assignment
+**Конструкторы**:
+
+- `Submission(String homeworkId, String solutionUrl)`
+
+**Методы**:
+
+- `String getHomeworkId()` - возвращает _id_ домашки
+- `String getSolutionUrl()` - возвращает ссылку на решение домашки
+
+##### class Task
 
 Класс, который хранит информацию о домашке. Именно его посылает клиент-преподаватель.
 
 **Поля**:
 
-- `id: str` - идентификатор домашки
-- `name: str` - название домашки
-- `publication_date: Date` - дата публикации домашки
-- `task_description: str` - условие домашки
-- `deadline: Date` - дедлайн домашки
-- `checker_id: str` - _id_ чекера, соответствующего домашке
+- `String name` - название домашки
+- `LocalDateTime publicationDate` - дата публикации домашки
+- `String taskDescription` - условие домашки
+- `LocalDateTime deadline` - дедлайн домашки
+- `String checkerId` - _id_ чекера, соответствующего домашке
+
+**Конструкторы**:
+
+- `Task(String name, LocalDateTime publicationDate, String taskDescription, LocalDateTime deadline, String checkerId)`
+
+**Методы**:
+
+- `String name()` - возвращает название домашки
+- `LocalDateTime publicationDate()` - возвращает дату публикации домашки
+- `String taskDescription()` - возвращает условие домашки
+- `LocalDateTime deadline()` - возвращает дедлайн домашки
+- `String getCheckerId()` - возвращает _id_ чекера, соответствующего домашке
+
+##### class Checker
+
+Класс, который хранит информацию о чекере.
+
+**Поля**:
+
+- `String id` - _id_ чекера
+- `String code`- реализация чекера
+
+**Конструкторы**:
+
+- `Checker(String id, String code)`
+
+**Методы**:
+
+- `String getId()` - возвращает _id_ чекера
+- `String getCode()` - возвращает реализацию чекера
 
 #### Model
 
@@ -160,103 +253,18 @@ P.S. Все совпадения с реальными людьми случай
 
 Класс, содержащий в себе основную бизнес-логику.
 
+**Поля**:
+
+- `Balancer balancer` - балансировщик нагрузки
+
 **Методы**:
 
-- `homeworks(): HomworkView[0..*]` - возвращает список домашек
-- `submit(str, str)` - принимает _id_ домашки и _url_ домашки
-- `results(): AttemptView[0..*]` - возвращает описание всех попыток
-- `add_homework(HomeworkView, str)` - вызывается преподавателем для добавления домашки; принимает описание домашки и
-  _id_ используемого чекера
-- `add_checker(str, str)` - добавление чекера. В качестве аргументов передаются _id_ чекера и его реализацию
-
-##### class AttemptView
-
-Класс, ответственный за отображение информации о попытке.
-
-**Поля**:
-
-- `homework: HomeworkView` - информация о домашке
-- `student: StudentView` - информация о студенте
-- `mark: MarkView` - информация об оценке
-- `comment: str` - комментарий к решению
-- `date_and_time: DateTime` - дата и время попытки
-
-##### class HomeworkView
-
-Класс, ответственный за отображение информации о студенте.
-
-**Поля**:
-
-- `id: str` - идентификатор домашки
-- `name: str` - название домашки
-- `publication_date: Date` - дата публикации
-- `task_description: str` - описание задания
-- `deadline: Date` - дедлайн
-
-##### class StudentView
-
-Класс, ответственный за отображение информации о студенте.
-
-**Поля**:
-
-- `name: str` - имя студента
-- `last_name: str` - фамилия студента
-
-##### class MarkView
-
-Класс, ответственный за отображение оценки.
-
-**Поля**:
-
-- `mark: str` - оценка
-
-Для общения с базой данных:
-
-##### class Homework
-
-Информация о домашке.
-
-**Поля**:
-
-- `id: str` - идентификатор домашки
-- `name: str` - название домашки
-- `publication_date: Date` - дата публикации домашки
-- `task_description: str` - описание задания
-- `deadline: Date` - дедлайн
-- `checkerType: CheckerType` - тип чекера
-
-##### class Attempt
-
-Попытка решения домашки.
-
-**Поля**:
-
-- `id: str` - идентификатор попытки
-- `homework: Homework` - домашка, соответствующая попытке
-- `date_and_time: DateTime` - дата попытки
-- `student_name: str` - имя студента
-- `student_last_name: str` - фамилия студента
-- `result: AttemptResult[0..1]` - результат попытки
-
-##### class CheckerType
-
-Класс, представляющий из себя тип чекера.
-
-**Поля**:
-
-- `id: str` - идентификатор чекера
-- `class_code` - код чекера
-
-##### class AttemptResult
-
-Класс, представляющий из себя результат попытки.
-
-**Поля**:
-
-- `id: str` - идентификатор
-- `mark: Mark` - результат работы чекера
-- `comment: str` - комментарий к решению
-- `attempt_id: str` - идентификатор попытки, которой соответствует данный результат
+- `List<HomeworkView> homeworks()` - возвращает список домашек
+- `void submit(SubmissionView submissionView)` - отправка решения
+- `List<AttemptView> results()` - возвращает описание всех попыток
+- `void addHomework(HomeworkView homework)` - вызывается преподавателем для добавления домашки
+- `void addChecker(String id, String code)` - добавление чекера. В качестве аргументов передаются _id_ чекера и его
+  реализацию
 
 ##### enum Mark
 
@@ -267,6 +275,200 @@ P.S. Все совпадения с реальными людьми случай
 - YES
 - NO
 
+##### class Submission
+
+Попытка решения домашки.
+
+**Поля**:
+
+- `String attemptId` - идентификатор попытки
+- `String homeworkId` - идентификатор домашки, соответствующей попытке
+- `String solutionUrl` - ссылка на решение домашки
+
+**Конструкторы**:
+
+- `Submission(String attemptId, String homeworkId, String solutionUrl)`
+
+**Методы**:
+
+- `String getAttemptId()` - возвращает идентификатор попытки
+- `String getHomeworkId()` - возвращает идентификатор домашки
+- `String getSolutionUrl()` - возвращает ссылку на решение
+
+Для общения с базой данных:
+
+##### class Homework
+
+Информация о домашке.
+
+**Поля**:
+
+- `String id` - идентификатор домашки
+- `String name` - название домашки
+- `LocalDateTime publicationDate` - дата публикации домашки
+- `String taskDescription` - описание задания
+- `LocalDateTime deadline` - дедлайн
+- `String checkerId` - _id_ чекера
+
+**Конструкторы**:
+
+- `Homework()`
+- `Homework(String name, LocalDateTime publicationDate, String taskDescription, LocalDateTime deadline, String checkerId)`
+
+**Методы**:
+
+- `String getId()` - возвращает идентификатор домашки
+- `void setId(String id)` - позволяет поменять идентификатор домашки на переданный
+- `String getName()` - возвращает имя домашки
+- `void setName(String name)` - позволяет поменять имя домашки на переданное
+- `LocalDateTime getPublicationDate()` - возвращает дату публикации домашки
+- `void setPublicationDate(LocalDateTime publicationDate)` - позволяет поменять дату публикации домашки на переданную
+- `String getTaskDescription()` - возвращает описание задания
+- `void setTaskDescription(String taskDescription)` - позволяет поменять описание задания на переданное
+- `LocalDateTime getDeadline()` - возвращает дедлайн
+- `void setDeadline(LocalDateTime deadline)` - позволяет поменять дедлайн на переданный
+- `String getCheckerId()` - возвращает идентификатор чекера
+- `void setCheckerId(String checkerId)` - позволяет поменять идентификатор чекера на переданный
+
+##### class Checker
+
+Информация о чекере.
+
+**Поля**:
+
+- `String id` - идентификатор чекера
+- `String code` - код чекера
+
+**Конструкторы**:
+
+- `Checker()`
+- `Checker(String id, String code)`
+
+##### class Attempt
+
+Информация о попытке сдачи домашки.
+
+**Поля**:
+
+- `String id` - идентификатор попытки
+- `String homeworkId` - идентификатор домашки
+- `LocalDateTime dateTime` - дата сдачи
+- `Mark mark` - результат работы чекера
+- `String comment` - комментарий к решению
+
+**Конструкторы**:
+
+- `Attempt()`
+- `Attempt(String homeworkId, LocalDateTime dateTime)`
+
+**Методы**:
+
+- `String getId()` - возвращает идентификатор попытки
+- `void setId(String id)` - позволяет заменить идентификатор попытки на переданный
+- `String getHomeworkId()` - возвращает идентификатор домашки
+- `void setHomeworkId(String homeworkId)` - позволяет заменить идентификатор домашки на переданный
+- `LocalDateTime getDateTime()` - возвращает дату сдачи
+- `void setDateTime(LocalDateTime localDateTime)` - позволяет заменить дату сдачи на переданную
+- `Mark getMark()` - возвращает результат работы чекера
+- `void setMark(Mark mark)` - позволяет заменить результат работы чекера на переданный
+- `String getComment()` - возвращает комментарий к решению
+- `void setComment(String comment)` - позволяет заменить комментарий к решению на переданный
+
+##### class Storage
+
+Информация о сеансах работы с базой данных (подключение и конфигурация).
+
+**Поля**:
+
+- `SessionFactory sessionFactory`
+
+**Методы**:
+
+- `SessionFactory getSessionFactory()` - возвращает фабрику сессий
+
+##### class AttemptView
+
+Класс, ответственный за информацию о попытке сдачи (для отображения).
+
+**Поля**:
+
+- `HomeworkView homework` - информация о домашке
+- `MarkView mark` - информация об оценке
+- `String comment` - комментарий к решению
+- `LocalDateTime date` - дата и время попытки
+
+**Конструкторы**:
+
+- `AttemptView(HomeworkView homework, MarkView mark, String comment, LocalDateTime date)`
+
+**Методы**:
+
+- `HomeworkView homework()` -возвращает информацию о домашке (отображение)
+- `MarkView mark()` - возвращает оценку чекера (отображение)
+- `String comment()` - возвращает комментарий к решению
+- `LocalDateTime date()` - дата и время попытки
+
+##### class HomeworkView
+
+Класс, ответственный за информацию о домашке (для отображения).
+
+**Поля**:
+
+- `String id` - идентификатор домашки
+- `String name` - название домашки
+- `LocalDateTime publicationDate` - дата публикации
+- `String taskDescription` - описание задания
+- `LocalDateTime deadline` - дедлайн
+- `String checkerId` - идентификатор чекера, соответствующего домашке
+
+**Конструкторы**:
+
+- `HomeworkView(String id, String name, LocalDateTime publicationDate, String taskDescription, LocalDateTime deadline, String checkerId)`
+- `HomeworkView(String name, LocalDateTime publicationDate, String taskDescription, LocalDateTime deadline, String checkerId)`
+
+**Методы**:
+
+- `String id()` - возвращает идентификатор домашки
+- `String name()` - возвращает название домашки
+- `LocalDateTime publicationDate()` - возвращает дату публикации
+- `String taskDescription()` - возвращает описание задания
+- `LocalDateTime deadline()` - возвращает дедлайн домашки
+- `String checkerId()` - возвращает идентификатор чекера
+
+##### class SubmissionView
+
+Класс, за информацию о посылке (для отображения).
+
+**Поля**:
+
+- `String homeworkId` - идентификатор домашки
+- `String solutionUrl` - ссылка на решение
+
+**Конструкторы**:
+
+- `SubmissionView(String homeworkId, String solutionUrl)`
+
+**Методы**:
+
+- `String getHomeworkId()` - возвращает идентификатор домашки
+- `String getSolutionUrl()` - возвращает ссылку на решение
+
+##### class MarkView
+
+Класс, ответственный за информацию об оценке.
+
+**Поля**:
+
+- `String mark` - оценка
+
+**Конструкторы**:
+
+- `MarkView(String mark)`
+
+**Методы**:
+
+- `String getMark()` - возвращает оценку
+
 #### Runner
 
 Прогоняет проверки.
@@ -275,33 +477,21 @@ P.S. Все совпадения с реальными людьми случай
 
 Собственно, раннер, на котором производится прогон проверок.
 
-**Методы**:
+**Поля**:
 
-- `start()` - запуск раннера
-- `check(Attempt)` - проверка переданной попытки
-
-##### class CheckerFactory
-
-Фабрика чекеров.
+- `String TASK_QUEUE_NAME` - имя очереди задач
 
 **Методы**:
 
-- `get(CheckerType): Checker` - возвращает чекер переданного типа
-
-##### interface Checker
-
-Интерфейс для чекера.
-
-**Методы**:
-
-- `check(Attempt): str` - проверка переданной попытки
+- `void main(String[] argv)` - запуск раннера
 
 #### Queue
 
 Очередь, в которую отправляются задачи на проверку. Состоит из:
 
 - RabbitMQ
-- **class Balancer** с методом `task(Attempt)`, отвечающим за балансировку нагрузки (распределение между очередями).
+- **class Balancer** с полем `String TASK_QUEUE_NAME` (имя очереди задач) и методом `void task(Submission submission)`,
+  отвечающим за балансировку нагрузки (распределение между очередями).
 
 #### Database
 
