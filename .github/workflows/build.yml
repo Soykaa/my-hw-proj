@@ -14,10 +14,10 @@ jobs:
           java-version: 15
 
       - name: Build
-        run: ./gradlew build --scan
+        run: ./sd/gradlew build --scan
 
       - name: Run tests
-        run: ./gradlew test
+        run: ./sd/gradlew test
 
   build-Windows:
     runs-on: windows-latest
@@ -30,10 +30,10 @@ jobs:
             java-version: 15
 
       -   name: Build
-          run: .\gradlew.bat build
+          run: .\sd\gradlew.bat build
 
       -   name: Run tests
-          run: .\gradlew.bat test
+          run: .\sd\gradlew.bat test
 
   build-MacOS:
     runs-on: macos-latest
@@ -46,7 +46,7 @@ jobs:
             java-version: 15
 
       -   name: Build
-          run: ./gradlew build
+          run: ./sd/gradlew build
 
       -   name: Run tests
-          run: ./gradlew test
+          run: ./sd/gradlew test
