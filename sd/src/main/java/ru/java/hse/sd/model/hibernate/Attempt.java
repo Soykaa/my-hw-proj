@@ -1,6 +1,7 @@
 package ru.java.hse.sd.model.hibernate;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,7 +16,6 @@ import ru.java.hse.sd.model.Mark;
 @Table(name="attempt")
 public class Attempt {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
     private String id;
 
     @Column(name="homework_id", length=250, nullable=false)
@@ -30,6 +30,17 @@ public class Attempt {
 
     @Column(name="comment", length=600)
     private String comment;
+
+    public Attempt() {
+    }
+
+    public Attempt(String homeworkId, LocalDateTime dateTime) {
+        this.id = UUID.randomUUID().toString();
+        this.homeworkId = homeworkId;
+        this.dateTime = dateTime;
+        this.mark = null;
+        this.comment = null;
+    }
 
     public String getId() {
         return id;

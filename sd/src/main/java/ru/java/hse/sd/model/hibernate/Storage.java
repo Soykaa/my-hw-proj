@@ -27,7 +27,7 @@ public class Storage {
         return cfg.buildSessionFactory();
     }
 
-    public static SessionFactory getSessionFactory() throws HibernateException {
+    public static synchronized SessionFactory getSessionFactory() throws HibernateException {
         if (sessionFactory == null) {
             sessionFactory = create();
         }

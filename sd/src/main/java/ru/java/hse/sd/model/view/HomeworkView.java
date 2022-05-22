@@ -27,6 +27,11 @@ public class HomeworkView {
         this.checkerId = checkerId;
     }
 
+    public HomeworkView(String name, LocalDateTime publicationDate,
+        String taskDescription, LocalDateTime deadline, String checkerId) {
+        this(null, name, publicationDate, taskDescription, deadline, checkerId);
+    }
+
     public String id() {
         return id;
     }

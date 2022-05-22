@@ -1,8 +1,11 @@
 package ru.java.hse.sd.model.hibernate;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -30,9 +33,9 @@ public class Homework {
     public Homework() {
     }
 
-    public Homework(String id, String name, LocalDateTime publicationDate,
+    public Homework(String name, LocalDateTime publicationDate,
         String taskDescription, LocalDateTime deadline, String checkerId) {
-        this.id = id;
+        this.id = UUID.randomUUID().toString();
         this.name = name;
         this.publicationDate = publicationDate;
         this.taskDescription = taskDescription;

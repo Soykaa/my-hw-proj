@@ -1,5 +1,6 @@
 package ru.java.hse.sd.model;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -40,7 +41,17 @@ public class Manager {
     }
 
     public void submit(String homeworkId, String solutionUrl) {
-
+        try (Session session = Storage.getSessionFactory().openSession()) {
+            Transaction tx = session.beginTransaction();
+            Attempt attempt = new Attempt(homeworkId, LocalDateTime.now());
+            try {
+                session.save(attempt);
+                tx.commit();
+            } catch (Exception e) {
+                tx.rollback();
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     public List<AttemptView> results() {
@@ -66,7 +77,7 @@ public class Manager {
     public void addHomework(HomeworkView homework) {
         try (Session session = Storage.getSessionFactory().openSession()) {
             Transaction tx = session.beginTransaction();
-            Homework homeworkModel = new Homework(homework.id(), homework.name(), homework.publicationDate(),
+            Homework homeworkModel = new Homework(homework.name(), homework.publicationDate(),
                 homework.taskDescription(), homework.deadline(), homework.checkerId());
             try {
                 session.save(homeworkModel);

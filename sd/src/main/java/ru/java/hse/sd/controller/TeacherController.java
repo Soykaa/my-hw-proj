@@ -30,7 +30,7 @@ class TeacherController {
     @PostMapping("/homework")
     String homework(@RequestBody Task task) {
         manager.addHomework(
-            new HomeworkView(task.id(), task.name(), task.publicationDate(), task.taskDescription(),
+            new HomeworkView(task.name(), task.publicationDate(), task.taskDescription(),
                 task.deadline(), task.getCheckerId())
         );
         return "OK";

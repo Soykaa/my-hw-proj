@@ -40,7 +40,8 @@ class StudentController {
 
     @PostMapping("/submit")
     String submit(@RequestBody Submission submission) {
-        return "OK";
+        manager.submit(submission.getHomeworkId(), submission.getSolutionUrl());
+        return "Ok";
     }
 
     @GetMapping("/results")
