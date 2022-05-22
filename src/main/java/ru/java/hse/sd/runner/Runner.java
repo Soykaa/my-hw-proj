@@ -12,10 +12,17 @@ import ru.java.hse.sd.model.Submission;
 import ru.java.hse.sd.model.hibernate.Attempt;
 import ru.java.hse.sd.model.hibernate.Storage;
 
-
+/**
+ * Runs checks.
+ **/
 public class Runner {
     private static final String TASK_QUEUE_NAME = "my_hw_proj";
 
+    /**
+     * Executes runner.
+     *
+     * @throws Exception in case of error
+     **/
     public static void main(String[] argv) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
@@ -39,7 +46,8 @@ public class Runner {
                 channel.basicAck(delivery.getEnvelope().getDeliveryTag(), false);
             }
         };
-        channel.basicConsume(TASK_QUEUE_NAME, false, deliverCallback, consumerTag -> { });
+        channel.basicConsume(TASK_QUEUE_NAME, false, deliverCallback, consumerTag -> {
+        });
     }
 
     private static void process(Submission submission) {
