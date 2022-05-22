@@ -72,7 +72,8 @@ public class StudentHtmlController {
      * Mostly for testing.
      **/
     @GetMapping("/welcome")
-    public String welcome(@RequestParam(name = "name", required = false, defaultValue = "Student") String name, Model model) {
+    public String welcome(@RequestParam(name = "name", required = false, defaultValue = "Student") String name,
+                          Model model) {
         model.addAttribute("name", name);
         return "welcome";
     }

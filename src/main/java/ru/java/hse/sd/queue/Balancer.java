@@ -17,7 +17,7 @@ public class Balancer {
      * Balances load.
      **/
     public void task(Submission submission) throws Exception {
-        ConnectionFactory factory = new ConnectionFactory();
+        var factory = new ConnectionFactory();
         factory.setHost("localhost");
         try (Connection connection = factory.newConnection();
              Channel channel = connection.createChannel()) {

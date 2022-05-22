@@ -12,7 +12,6 @@ import ru.java.hse.sd.model.view.AttemptView;
 class AttemptModelAssembler implements RepresentationModelAssembler<AttemptView, EntityModel<AttemptView>> {
     @Override
     public EntityModel<AttemptView> toModel(AttemptView attempt) {
-        return EntityModel.of(attempt,
-                linkTo(methodOn(StudentController.class).results()).withRel("attempts"));
+        return EntityModel.of(attempt, linkTo(methodOn(StudentController.class).results()).withRel("attempts"));
     }
 }

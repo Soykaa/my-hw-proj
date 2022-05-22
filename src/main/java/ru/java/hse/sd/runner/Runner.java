@@ -24,7 +24,7 @@ public class Runner {
      * @throws Exception in case of error
      **/
     public static void main(String[] argv) throws Exception {
-        ConnectionFactory factory = new ConnectionFactory();
+        var factory = new ConnectionFactory();
         factory.setHost("localhost");
         final Connection connection = factory.newConnection();
         final Channel channel = connection.createChannel();
@@ -52,15 +52,15 @@ public class Runner {
 
     private static void process(Submission submission) {
         try (Session session = Storage.getSessionFactory().openSession()) {
-            Transaction tx = session.beginTransaction();
+            Transaction transaction = session.beginTransaction();
             Attempt attempt = session.find(Attempt.class, submission.getAttemptId());
             attempt.setMark(Mark.YES);
             attempt.setComment("Great Work!");
             try {
                 session.save(attempt);
-                tx.commit();
+                transaction.commit();
             } catch (Exception e) {
-                tx.rollback();
+                transaction.rollback();
                 throw new RuntimeException(e);
             }
         }

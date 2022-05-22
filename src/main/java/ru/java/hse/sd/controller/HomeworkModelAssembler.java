@@ -11,7 +11,6 @@ import ru.java.hse.sd.model.view.HomeworkView;
 class HomeworkModelAssembler implements RepresentationModelAssembler<HomeworkView, EntityModel<HomeworkView>> {
     @Override
     public EntityModel<HomeworkView> toModel(HomeworkView homework) {
-        return EntityModel.of(homework,
-                linkTo(methodOn(StudentController.class).homeworks()).withRel("homeworks"));
+        return EntityModel.of(homework, linkTo(methodOn(StudentController.class).homeworks()).withRel("homeworks"));
     }
 }

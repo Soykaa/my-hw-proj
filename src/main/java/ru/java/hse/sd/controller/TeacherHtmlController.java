@@ -57,7 +57,8 @@ public class TeacherHtmlController {
      * Mostly for testing.
      **/
     @GetMapping("/welcome")
-    public String welcomeAsHTML(@RequestParam(name = "name", required = false, defaultValue = "Teacher") String name, Model model) {
+    public String welcomeAsHTML(@RequestParam(name = "name", required = false, defaultValue = "Teacher") String name,
+                                Model model) {
         model.addAttribute("name", name);
         return "welcome";
     }

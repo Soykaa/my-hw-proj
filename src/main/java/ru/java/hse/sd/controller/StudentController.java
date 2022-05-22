@@ -72,7 +72,8 @@ public class StudentController {
     @GetMapping("/results-json")
     CollectionModel<EntityModel<AttemptView>> results() {
         List<EntityModel<AttemptView>> attempts = manager.results().stream()
-                .map(attemptAssembler::toModel).collect(Collectors.toList());
+                .map(attemptAssembler::toModel) //
+                .collect(Collectors.toList());
         return CollectionModel.of(attempts, linkTo(methodOn(StudentController.class).results()).withSelfRel());
     }
 
@@ -85,6 +86,7 @@ public class StudentController {
     @GetMapping("/results-json/{id}")
     EntityModel<AttemptView> results(@PathVariable Integer id) {
         return manager.results().stream()
-                .map(attemptAssembler::toModel).collect(Collectors.toList()).get(id);
+                .map(attemptAssembler::toModel) //
+                .collect(Collectors.toList()).get(id);
     }
 }
