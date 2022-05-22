@@ -28,9 +28,8 @@ public class StudentHtmlController {
         return "homeworks";
     }
 
-
     @GetMapping("/welcome")
-    public String welcomeAsHTML(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
+    public String welcomeAsHTML(@RequestParam(name = "name", required = false, defaultValue = "Student") String name, Model model) {
         model.addAttribute("name", name);
         return "welcome";
     }

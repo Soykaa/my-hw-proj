@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.java.hse.sd.model.Manager;
 import ru.java.hse.sd.model.view.AttemptView;
 
@@ -31,5 +32,11 @@ public class TeacherHtmlController {
         AttemptView attempt = manager.results().get(id);
         model.addAttribute("attempt", attempt);
         return "result";
+    }
+
+    @GetMapping("/welcome")
+    public String welcomeAsHTML(@RequestParam(name = "name", required = false, defaultValue = "Teacher") String name, Model model) {
+        model.addAttribute("name", name);
+        return "welcome";
     }
 }
