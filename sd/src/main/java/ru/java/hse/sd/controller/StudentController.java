@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,6 +38,11 @@ class StudentController {
             .map(homeworkAssembler::toModel) //
             .collect(Collectors.toList());
         return CollectionModel.of(homeworks, linkTo(methodOn(StudentController.class).homeworks()).withSelfRel());
+    }
+
+    @GetMapping("/welcome")
+    public String welcomeAsHTML() {
+        return "welcome";
     }
 
     @PostMapping("/submit")
