@@ -58,8 +58,7 @@ class StudentController {
 
     @GetMapping("/results-json/{id}")
     EntityModel<AttemptView> results(@PathVariable Integer id) {
-        EntityModel<AttemptView> attempt = manager.results().stream()
+        return manager.results().stream()
                 .map(attemptAssembler::toModel).collect(Collectors.toList()).get(id);
-        return attempt;
     }
 }

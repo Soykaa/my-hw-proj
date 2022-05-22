@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>PUBLICATION_DATE</th>
+        <th>NAME</th>
+        <th>DEADLINE</th>
+        <th>DESCRIPTION</th>
+    </tr>
+    <tr th:each="homework: ${homeworks}">
+        <td th:text="${homework.id()}">  </td>
+        <td th:text="${homework.publicationDate()}">  </td>
+        <td th:text="${homework.name()}">  </td>
+        <td th:text="${homework.deadline()}">  </td>
+        <td th:text="${homework.taskDescription()}">  </td>
+    </tr>
+</table>
+
+</body>
+</html>

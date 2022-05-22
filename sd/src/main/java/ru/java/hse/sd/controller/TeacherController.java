@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,10 +43,16 @@ class TeacherController {
         return "OK";
     }
 
-    @GetMapping("/results")
+    @GetMapping("/results-json")
     CollectionModel<EntityModel<AttemptView>> results() {
         List<EntityModel<AttemptView>> attempts = manager.results().stream()
             .map(attemptAssembler::toModel).collect(Collectors.toList());
         return CollectionModel.of(attempts, linkTo(methodOn(StudentController.class).results()).withSelfRel());
+    }
+
+    @GetMapping("/results-json/{id}")
+    EntityModel<AttemptView> results(@PathVariable Integer id) {
+        return manager.results().stream()
+                .map(attemptAssembler::toModel).collect(Collectors.toList()).get(id);
     }
 }
