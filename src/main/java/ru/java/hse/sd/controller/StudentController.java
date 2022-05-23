@@ -39,6 +39,12 @@ public class StudentController {
         manager = new Manager();
     }
 
+    public StudentController(Manager manager) {
+        this.homeworkAssembler = new HomeworkModelAssembler();
+        this.attemptAssembler = new AttemptModelAssembler();
+        this.manager = manager;
+    }
+
     /**
      * Returns list of homeworks in the correct order.
      *

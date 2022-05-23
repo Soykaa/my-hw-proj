@@ -20,32 +20,9 @@ public class StudentControllerServingTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    private Manager manager;
-
-//    @Test
-//    public void homeworks() throws Exception {
-//        var homeworkView = new HomeworkView("test-homework-idddd", null, null, null, null);
-//        Mockito.when(manager.homeworks()).thenReturn(List.of(homeworkView));
-//        mockMvc.perform(get("/student/homeworks"))
-//                .andExpect(content().string(containsString("test-homework-id")));
-//    }
-
     @Test
     public void welcome() throws Exception {
         mockMvc.perform(get("/student/welcome"))
                 .andExpect(content().string(containsString("Hello, Student!")));
     }
-
-//    @Test
-//    public void results() throws Exception {
-//        mockMvc.perform(get("/student/results"))
-//                .andExpect(content().string(containsString("look attempt")));
-//    }
-//
-//    @Test
-//    public void oneResult() throws Exception {
-//        mockMvc.perform(get("/student/results/0"))
-//                .andExpect(content().string(containsString("Homework:")));
-//    }
 }
