@@ -25,4 +25,13 @@ public class StudentControllerServingTest {
         mockMvc.perform(get("/student/welcome"))
                 .andExpect(content().string(containsString("Hello, Student!")));
     }
+
+    @Test
+    public void menu() throws Exception {
+        mockMvc.perform(get("/student/"))
+                .andExpect(content().string(containsString("Choose option")))
+                .andExpect(content().string(containsString("List of results")))
+                .andExpect(content().string(containsString("List of homeworks")))
+                .andExpect(content().string(containsString("Back to main menu")));
+    }
 }
