@@ -14,7 +14,9 @@
         <th>DESCRIPTION</th>
     </tr>
     <tr th:each="homework: ${homeworks}">
-        <td th:text="${homework.id()}">  </td>
+        <td>
+            <a th:href="@{'submit/' + ${homework.id()}}" th:text="${homework.id()}"/>
+        </td>
         <td th:text="${homework.publicationDate()}">  </td>
         <td th:text="${homework.name()}">  </td>
         <td th:text="${homework.deadline()}">  </td>

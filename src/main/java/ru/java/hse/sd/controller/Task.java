@@ -8,13 +8,34 @@ import java.time.LocalDateTime;
  * Stores information about home task.
  **/
 public class Task {
-    private final String name;
+    private String name;
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS]")
-    private final LocalDateTime publicationDate;
-    private final String taskDescription;
+    private LocalDateTime publicationDate;
+    private String taskDescription;
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS]")
-    private final LocalDateTime deadline;
-    private final String checkerId;
+    private LocalDateTime deadline;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPublicationDate(LocalDateTime publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
+    public void setTaskDescription(String taskDescription) {
+        this.taskDescription = taskDescription;
+    }
+
+    public void setDeadline(LocalDateTime deadline) {
+        this.deadline = deadline;
+    }
+
+    public void setCheckerId(String checkerId) {
+        this.checkerId = checkerId;
+    }
+
+    private String checkerId;
 
     /**
      * Creates new instance of Task object.
@@ -35,12 +56,14 @@ public class Task {
         this.checkerId = checkerId;
     }
 
+    public Task() {};
+
     /**
      * Returns homework name.
      *
      * @return homework name as string
      **/
-    public String name() {
+    public String getName() {
         return name;
     }
 
@@ -49,7 +72,7 @@ public class Task {
      *
      * @return homework publication date
      **/
-    public LocalDateTime publicationDate() {
+    public LocalDateTime getPublicationDate() {
         return publicationDate;
     }
 
@@ -58,7 +81,7 @@ public class Task {
      *
      * @return task description
      **/
-    public String taskDescription() {
+    public String getTaskDescription() {
         return taskDescription;
     }
 
@@ -67,7 +90,7 @@ public class Task {
      *
      * @return homework deadline
      **/
-    public LocalDateTime deadline() {
+    public LocalDateTime getDeadline() {
         return deadline;
     }
 

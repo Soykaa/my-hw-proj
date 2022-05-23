@@ -44,11 +44,11 @@ public class TeacherController {
      * @param task task to add
      * @return result of adding
      **/
-    @PostMapping("/homework")
+    @PostMapping("/homework-json")
     public String homework(@RequestBody Task task) {
         manager.addHomework(
-                new HomeworkView(task.name(), task.publicationDate(), task.taskDescription(),
-                        task.deadline(), task.getCheckerId())
+                new HomeworkView(task.getName(), task.getPublicationDate(), task.getTaskDescription(),
+                        task.getDeadline(), task.getCheckerId())
         );
         return "OK";
     }
@@ -59,7 +59,7 @@ public class TeacherController {
      * @param checker checker to add
      * @return result of adding
      **/
-    @PostMapping("/checker")
+    @PostMapping("/checker-json")
     public String submit(@RequestBody Checker checker) {
         manager.addChecker(checker.getId(), checker.getCode());
         return "OK";

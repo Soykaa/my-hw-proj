@@ -2,6 +2,7 @@ package ru.java.hse.sd.controller;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.java.hse.sd.model.Manager;
 import ru.java.hse.sd.model.view.AttemptView;
@@ -58,7 +59,7 @@ public class StudentController {
      * @return submission result
      * @throws Exception in case of incorrect submission
      **/
-    @PostMapping("/submit")
+    @PostMapping("/submit-json")
     String submit(@RequestBody Submission submission) throws Exception {
         manager.submit(new SubmissionView(submission.getHomeworkId(), submission.getSolutionUrl()));
         return "Ok";

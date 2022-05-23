@@ -3,12 +3,15 @@ package ru.java.hse.sd.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.java.hse.sd.model.Manager;
 import ru.java.hse.sd.model.view.AttemptView;
 import ru.java.hse.sd.model.view.HomeworkView;
+import ru.java.hse.sd.model.view.SubmissionView;
 
 import java.util.List;
 
@@ -76,5 +79,22 @@ public class StudentHtmlController {
                           Model model) {
         model.addAttribute("name", name);
         return "welcome";
+    }
+
+    @GetMapping("/submit/{id}")
+    public String showSubmission(@PathVariable String id, Model model) {
+        Submission submission = new Submission();
+        submission.setHomeworkId(id);
+        model.addAttribute("submission1", submission);
+        return "submit";
+    }
+
+    @PostMapping("/submit")
+    public String submitSubmission(@ModelAttribute Submission submission, Model model)
+            throws Exception {
+//        submission.setHomeworkId(((Submission)model.getAttribute("submission1")).getHomeworkId());
+        model.addAttribute("submission", submission);
+        manager.submit(new SubmissionView(submission.getHomeworkId(), submission.getSolutionUrl()));
+        return "submit_result";
     }
 }

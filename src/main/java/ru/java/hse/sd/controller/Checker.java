@@ -4,8 +4,17 @@ package ru.java.hse.sd.controller;
  * Stores information about checker.
  **/
 public class Checker {
-    private final String id;
-    private final String code;
+    private String id;
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    private String code;
 
     /**
      * Creates new instance of Checker object.
@@ -18,6 +27,8 @@ public class Checker {
         this.id = id;
         this.code = code;
     }
+
+    public Checker() {}
 
     /**
      * Returns checker id.

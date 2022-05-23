@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Handling Submission</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Result</h1>
+<p th:text="'Checker id: ' + ${checker.getId()}" />
+<p th:text="'Checker code: ' + ${checker.getCode()}" />
+
+<a href="/teacher/homework">Add another checker</a>
+</body>
+</html>

@@ -4,8 +4,17 @@ package ru.java.hse.sd.controller;
  * Stores information about homework solution.
  **/
 public class Submission {
-    private final String homeworkId;
-    private final String solutionUrl;
+    private String homeworkId;
+
+    public void setHomeworkId(String homeworkId) {
+        this.homeworkId = homeworkId;
+    }
+
+    public void setSolutionUrl(String solutionUrl) {
+        this.solutionUrl = solutionUrl;
+    }
+
+    private String solutionUrl;
 
     /**
      * Creates new instance of Submission object.
@@ -18,6 +27,8 @@ public class Submission {
         this.homeworkId = homeworkId;
         this.solutionUrl = solutionUrl;
     }
+
+    public Submission() {}
 
     /**
      * Returns homework id.

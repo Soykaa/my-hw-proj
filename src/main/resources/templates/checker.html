@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Handling Submission</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Submit solution</h1>
+<form action="#" th:action="@{/teacher/checker}" th:object="${checker}" method="post">
+  <p>Checker id: <input type="text" th:field="*{id}" /></p>
+  <p>Checker code: <input type="text" th:field="*{code}" /></p>
+  <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>
