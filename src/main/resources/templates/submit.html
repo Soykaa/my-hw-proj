@@ -6,8 +6,8 @@
 </head>
 <body>
 <h1>Submit solution</h1>
-<form action="#" th:action="@{/student/submit}" th:object="${submission1}" method="post">
-    <p>Homework id: <input id="homeworkId" readonly th:field="${submission1.homeworkId}" /></p>
+<form action="#" th:action="@{/student/submit}" th:object="${submission}" method="post">
+    <p>Homework id: <input id="homeworkId" readonly th:field="${submission.homeworkId}" /></p>
     <p>Submission url: <input type="text" th:field="*{solutionUrl}" /></p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>

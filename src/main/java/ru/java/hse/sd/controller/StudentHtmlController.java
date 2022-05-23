@@ -85,14 +85,13 @@ public class StudentHtmlController {
     public String showSubmission(@PathVariable String id, Model model) {
         Submission submission = new Submission();
         submission.setHomeworkId(id);
-        model.addAttribute("submission1", submission);
+        model.addAttribute("submission", submission);
         return "submit";
     }
 
     @PostMapping("/submit")
     public String submitSubmission(@ModelAttribute Submission submission, Model model)
             throws Exception {
-//        submission.setHomeworkId(((Submission)model.getAttribute("submission1")).getHomeworkId());
         model.addAttribute("submission", submission);
         manager.submit(new SubmissionView(submission.getHomeworkId(), submission.getSolutionUrl()));
         return "submit_result";
