@@ -39,6 +39,10 @@ public class StudentController {
         manager = new Manager();
     }
 
+    /**
+     * Setter for manager. Is used only in tests
+     * @param manager
+     */
     public void setManager(Manager manager) {
         this.manager = manager;
     }

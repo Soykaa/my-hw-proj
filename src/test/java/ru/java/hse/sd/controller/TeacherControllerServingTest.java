@@ -19,4 +19,20 @@ public class TeacherControllerServingTest {
         mockMvc.perform(get("/teacher/welcome"))
                 .andExpect(content().string(containsString("Hello, Teacher!")));
     }
+
+    @Test
+    public void menu() throws Exception {
+        mockMvc.perform(get("/teacher/"))
+                .andExpect(content().string(containsString("Choose option")))
+                .andExpect(content().string(containsString("List of results")))
+                .andExpect(content().string(containsString("Add new homework")))
+                .andExpect(content().string(containsString("Add new checker")))
+                .andExpect(content().string(containsString("Back to main menu")));
+    }
+
+    @Test
+    public void showChecker() throws Exception {
+        mockMvc.perform(get("/teacher/checker"))
+                .andExpect(content().string(containsString("Submit checker")));
+    }
 }

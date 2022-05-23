@@ -25,7 +25,7 @@ import ru.java.hse.sd.model.view.HomeworkView;
 @RequestMapping(path = "teacher")
 public class TeacherController {
     private final AttemptModelAssembler attemptAssembler;
-    private final Manager manager;
+    private Manager manager;
 
     /**
      * Creates new instance of TeacherController object.
@@ -36,6 +36,15 @@ public class TeacherController {
     public TeacherController(AttemptModelAssembler attemptAssembler) {
         this.attemptAssembler = attemptAssembler;
         manager = new Manager();
+    }
+
+    /**
+     * Setter for manager. Is used only in tests
+     * @param manager
+     */
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
     }
 
     /**

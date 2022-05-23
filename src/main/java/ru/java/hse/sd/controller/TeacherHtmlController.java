@@ -20,7 +20,7 @@ import java.util.List;
 @Controller
 @RequestMapping(path = "teacher")
 public class TeacherHtmlController {
-    private final Manager manager;
+    private Manager manager;
 
     /**
      * Creates new instance of TeacherHtmlController object.
@@ -28,6 +28,14 @@ public class TeacherHtmlController {
      **/
     TeacherHtmlController() {
         manager = new Manager();
+    }
+
+    /**
+     * Setter for manager. Is used only in tests
+     * @param manager
+     */
+    public void setManager(Manager manager) {
+        this.manager = manager;
     }
 
     /**
