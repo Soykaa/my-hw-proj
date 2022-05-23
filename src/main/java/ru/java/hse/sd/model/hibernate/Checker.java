@@ -34,4 +34,8 @@ public class Checker {
         this.id = id;
         this.code = code;
     }
+
+    public String getCode() {
+        return code;
+    }
 }
