@@ -54,7 +54,7 @@ public class StudentHtmlController {
     public String results(Model model) {
         List<AttemptView> attempts = manager.results();
         model.addAttribute("attempts", attempts);
-        return "results";
+        return "student_results";
     }
 
     /**
@@ -68,7 +68,7 @@ public class StudentHtmlController {
     public String results(@PathVariable Integer id, Model model) {
         AttemptView attempt = manager.results().get(id);
         model.addAttribute("attempt", attempt);
-        return "result";
+        return "student_result";
     }
 
     /**
@@ -79,6 +79,11 @@ public class StudentHtmlController {
                           Model model) {
         model.addAttribute("name", name);
         return "welcome";
+    }
+
+    @GetMapping("/")
+    public String showStudentMenu() {
+        return "student_menu";
     }
 
     @GetMapping("/submit/{id}")

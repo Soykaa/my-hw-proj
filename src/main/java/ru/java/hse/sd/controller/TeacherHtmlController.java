@@ -40,7 +40,7 @@ public class TeacherHtmlController {
     public String results(Model model) {
         List<AttemptView> attempts = manager.results();
         model.addAttribute("attempts", attempts);
-        return "results";
+        return "teacher_results";
     }
 
     /**
@@ -53,7 +53,7 @@ public class TeacherHtmlController {
     public String results(@PathVariable Integer id, Model model) {
         AttemptView attempt = manager.results().get(id);
         model.addAttribute("attempt", attempt);
-        return "result";
+        return "teacher_result";
     }
 
     /**
@@ -93,5 +93,10 @@ public class TeacherHtmlController {
         model.addAttribute("checker", checker);
         manager.addChecker(checker.getId(), checker.getCode());
         return "checker_result";
+    }
+
+    @GetMapping("/")
+    public String showTeacherMenu() {
+        return "teacher_menu";
     }
 }
