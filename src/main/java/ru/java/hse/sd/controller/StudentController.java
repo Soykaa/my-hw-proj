@@ -23,7 +23,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class StudentController {
     private final HomeworkModelAssembler homeworkAssembler;
     private final AttemptModelAssembler attemptAssembler;
-    private final Manager manager;
+    private Manager manager;
 
     /**
      * Creates new instance of StudentController object.
@@ -39,9 +39,7 @@ public class StudentController {
         manager = new Manager();
     }
 
-    public StudentController(Manager manager) {
-        this.homeworkAssembler = new HomeworkModelAssembler();
-        this.attemptAssembler = new AttemptModelAssembler();
+    public void setManager(Manager manager) {
         this.manager = manager;
     }
 

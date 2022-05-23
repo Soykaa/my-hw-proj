@@ -17,7 +17,8 @@ public class StudentControllerTest {
     public void homeworks() {
         var homeworkView = new HomeworkView("test-homework-id", null, null, null, null);
         Mockito.when(manager.homeworks()).thenReturn(List.of(homeworkView));
-        var controller = new StudentController(manager);
+        var controller = new StudentController(new HomeworkModelAssembler(), new AttemptModelAssembler());
+        controller.setManager(manager);
         var result = controller.homeworks();
         Assertions.assertEquals(1, result.getContent().size());
         Assertions.assertEquals("test-homework-id",
