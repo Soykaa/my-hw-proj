@@ -20,15 +20,15 @@ public class TeacherControllerServingTest {
                 .andExpect(content().string(containsString("Hello, Teacher!")));
     }
 
-    @Test
-    public void results() throws Exception {
-        mockMvc.perform(get("/teacher/results"))
-                .andExpect(content().string(containsString("look attempt")));
-    }
-
-    @Test
-    public void oneResult() throws Exception {
-        mockMvc.perform(get("/teacher/results/0"))
-                .andExpect(content().string(containsString("Homework:")));
-    }
+//    @Test
+//    public void results() throws Exception {
+//        mockMvc.perform(get("/teacher/results"))
+//                .andExpect(content().string(containsString("look attempt")));
+//    }
+//
+//    @Test
+//    public void oneResult() throws Exception {
+//        mockMvc.perform(get("/teacher/results/0"))
+//                .andExpect(content().string(containsString("Homework:")));
+//    }
 }
