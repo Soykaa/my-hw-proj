@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="'Homework:'" />
+<p th:text="'       - name: ' + ${attempt.homework().name()}" />
+<p th:text="'       - publication date:' + ${attempt.homework().publicationDate()}" />
+<p th:text="'       - deadline: ' + ${attempt.homework().deadline()}" />
+<p th:text="'       - description: ' + ${attempt.homework().taskDescription()}" />
+<p th:text="'Attempt date: ' + ${attempt.date()}" />
+<p th:text="'Attempt result: ' + ${attempt.mark().getMark()}" />
+<p th:text="'Attempt comment: ' + ${attempt.comment()}" />
+
+<div>
+    &nbsp;
+</div>
+<a href="/teacher/results">Back to result list</a>
+
+<div>
+    &nbsp;
+</div>
+<a href="/teacher/">Back to choosing options</a>
+
+</body>
+</html>
