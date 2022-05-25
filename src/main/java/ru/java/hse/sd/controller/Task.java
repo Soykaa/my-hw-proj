@@ -15,26 +15,6 @@ public class Task {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS]")
     private LocalDateTime deadline;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPublicationDate(LocalDateTime publicationDate) {
-        this.publicationDate = publicationDate;
-    }
-
-    public void setTaskDescription(String taskDescription) {
-        this.taskDescription = taskDescription;
-    }
-
-    public void setDeadline(LocalDateTime deadline) {
-        this.deadline = deadline;
-    }
-
-    public void setCheckerId(String checkerId) {
-        this.checkerId = checkerId;
-    }
-
     private String checkerId;
 
     /**
@@ -56,7 +36,31 @@ public class Task {
         this.checkerId = checkerId;
     }
 
-    public Task() {};
+    /**
+     * Creates new instance of Task object.
+     **/
+    public Task() {
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPublicationDate(LocalDateTime publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
+    public void setTaskDescription(String taskDescription) {
+        this.taskDescription = taskDescription;
+    }
+
+    public void setDeadline(LocalDateTime deadline) {
+        this.deadline = deadline;
+    }
+
+    public void setCheckerId(String checkerId) {
+        this.checkerId = checkerId;
+    }
 
     /**
      * Returns homework name.

@@ -28,7 +28,11 @@ public class Submission {
         this.solutionUrl = solutionUrl;
     }
 
-    public Submission() {}
+    /**
+     * Creates new instance of Submission object.
+     **/
+    public Submission() {
+    }
 
     /**
      * Returns homework id.

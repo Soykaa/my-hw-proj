@@ -32,8 +32,8 @@ public class StudentHtmlController {
     }
 
     /**
-     * Setter for manager. Is used only in tests
-     * @param manager
+     * Setter for manager. It is used only in tests
+     * @param manager manager
      */
     public void setManager(Manager manager) {
         this.manager = manager;
@@ -89,11 +89,21 @@ public class StudentHtmlController {
         return "welcome";
     }
 
+    /**
+     * Returns student main menu.
+     *
+     * @return student main menu page
+     **/
     @GetMapping("/")
     public String showStudentMenu() {
         return "student_menu";
     }
 
+    /**
+     * Returns submission which corresponds passed id.
+     *
+     * @return submission page
+     **/
     @GetMapping("/submit/{id}")
     public String showSubmission(@PathVariable String id, Model model) {
         Submission submission = new Submission();
@@ -102,6 +112,12 @@ public class StudentHtmlController {
         return "submit";
     }
 
+    /**
+     * Submits submission.
+     *
+     * @return submission page
+     * @throws Exception in case of error
+     **/
     @PostMapping("/submit")
     public String submitSubmission(@ModelAttribute Submission submission, Model model)
             throws Exception {

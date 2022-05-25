@@ -122,6 +122,7 @@ P.S. Все совпадения с реальными людьми случай
 **Конструкторы**:
 
 - `StudentController(HomeworkModelAssembler homeworkAssembler, AttemptModelAssembler attemptAssembler)`
+- `StudentController(Manager manager)`
 
 **Методы**:
 
@@ -147,6 +148,9 @@ P.S. Все совпадения с реальными людьми случай
 - `String homeworks(Model model)` - получение списка всех домашек в нужном порядке
 - `String results(Model model)` - список результатов, отсортированный по дате сдачи
 - `String results(Integer id, Model model)` - результат, соответствующий идентификатору _id_
+- `String showStudentMenu()` - возвращает меню студента
+- `String showSubmission(String id, Model model)` - возвращает информацию о сабмите с идентификатором _id_
+- `String submitSubmission(Submission submission, Model model)` - осуществляет сабмит
 
 ##### class TeacherController
 
@@ -184,6 +188,19 @@ P.S. Все совпадения с реальными людьми случай
 
 - `String results(Model model)`- список результатов, отсортированный по дате сдачи
 - `String results(Integer id, Model model)` - результат, соответствующий идентификатору _id_
+- `String showHomework(Model model)` - показ домашки
+- `String submitHomework(Task task, Model model)` - отправка домашки
+- `String showChecker(Model model)` - показ чекера
+- `String submitChecker(Checker checker, Model model)` - отправка чекера
+- `String showTeacherMenu()` - показ меню преподавателя
+
+##### class MainMenuHtmlController
+
+Класс, который хранит информацию о главном меню.
+
+**Методы**:
+
+- `String showMainMenu()` - возвращает главное меню
 
 ##### class Submission
 
@@ -197,6 +214,7 @@ P.S. Все совпадения с реальными людьми случай
 **Конструкторы**:
 
 - `Submission(String homeworkId, String solutionUrl)`
+- `Submission()`
 
 **Методы**:
 
@@ -218,6 +236,7 @@ P.S. Все совпадения с реальными людьми случай
 **Конструкторы**:
 
 - `Task(String name, LocalDateTime publicationDate, String taskDescription, LocalDateTime deadline, String checkerId)`
+- `Task()`
 
 **Методы**:
 
@@ -226,6 +245,7 @@ P.S. Все совпадения с реальными людьми случай
 - `String taskDescription()` - возвращает условие домашки
 - `LocalDateTime deadline()` - возвращает дедлайн домашки
 - `String getCheckerId()` - возвращает _id_ чекера, соответствующего домашке
+- `void setName(String name)` - позволяет заменить название домашки на переданное
 
 ##### class Checker
 

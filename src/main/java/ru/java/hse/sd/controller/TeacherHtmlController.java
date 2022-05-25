@@ -31,8 +31,8 @@ public class TeacherHtmlController {
     }
 
     /**
-     * Setter for manager. Is used only in tests
-     * @param manager
+     * Setter for manager. It is used only in tests
+     * @param manager manager
      */
     public void setManager(Manager manager) {
         this.manager = manager;
@@ -74,12 +74,25 @@ public class TeacherHtmlController {
         return "welcome";
     }
 
+    /**
+     * Shows homework.
+     *
+     * @param model model
+     * @return homework page
+     **/
     @GetMapping("/homework")
     public String showHomework(Model model) {
         model.addAttribute("task", new Task());
         return "homework";
     }
 
+    /**
+     * Submits homework.
+     *
+     * @param model model
+     * @param task  task
+     * @return homework result page
+     **/
     @PostMapping("/homework")
     public String submitHomework(@ModelAttribute Task task, Model model) {
         model.addAttribute("task", task);
@@ -90,12 +103,25 @@ public class TeacherHtmlController {
         return "homework_result";
     }
 
+    /**
+     * Shows checker.
+     *
+     * @param model model
+     * @return checker page
+     **/
     @GetMapping("/checker")
     public String showChecker(Model model) {
         model.addAttribute("checker", new Checker());
         return "checker";
     }
 
+    /**
+     * Submits checker.
+     *
+     * @param checker checker
+     * @param model   model
+     * @return checker page
+     **/
     @PostMapping("/checker")
     public String submitChecker(@ModelAttribute Checker checker, Model model) {
         model.addAttribute("checker", checker);
@@ -103,6 +129,11 @@ public class TeacherHtmlController {
         return "checker_result";
     }
 
+    /**
+     * Shows teacher menu.
+     *
+     * @return teacher menu page
+     **/
     @GetMapping("/")
     public String showTeacherMenu() {
         return "teacher_menu";

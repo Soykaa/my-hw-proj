@@ -2,7 +2,6 @@ package ru.java.hse.sd.controller;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.java.hse.sd.model.Manager;
 import ru.java.hse.sd.model.view.AttemptView;
@@ -40,8 +39,8 @@ public class StudentController {
     }
 
     /**
-     * Setter for manager. Is used only in tests
-     * @param manager
+     * Setter for manager. It is used only in tests
+     * @param manager manager
      */
     public void setManager(Manager manager) {
         this.manager = manager;
